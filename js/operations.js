@@ -35,7 +35,6 @@ function rotateCamera(direction) {
 function translate(direction) {
     if (direction === "right" || direction === "up" || direction === "stepDown") step = scene.moveStep
     if (direction === "left" || direction === "down" || direction === "stepUp") step = -scene.moveStep
-    console.log(direction, 'dir')
     // horizontal
     if (direction === "left" || direction === "right") {
         scene.objects.forEach(object => {

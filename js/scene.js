@@ -1,11 +1,11 @@
 class Scene {
-    constructor(ctx, objects, dx, dy) {
+    constructor(ctx, objects, canvasWidthMiddle, canvasHeightMiddle) {
         // ctx - canvas context
         // objects - objects to render
         this.objects = objects
         this.ctx = ctx
-        this.dx = dx
-        this.dy = dy
+        this.canvasWidthMiddle = canvasWidthMiddle
+        this.canvasHeightMiddle = canvasHeightMiddle
         this.distance = 200
         this.distanceStep = 20
         this.rotateStep = 0.02
@@ -23,7 +23,7 @@ class Scene {
 
     render() {
         // clear the previous frame
-        this.ctx.clearRect(0, 0, 2 * this.dx, 2 * this.dy);
+        this.ctx.clearRect(0, 0, 2 * this.canvasWidthMiddle, 2 * this.canvasHeightMiddle);
 
         this.objects.forEach(object => {
             object.faces.forEach(face => {
@@ -31,8 +31,8 @@ class Scene {
                 face.forEach((vertex, i) => {
                     let P = this.project(vertex);
                     if (P === undefined) return
-                    let x = P.x + this.dx
-                    let y = -P.y + this.dy
+                    let x = P.x + this.canvasWidthMiddle
+                    let y = -P.y + this.canvasHeightMiddle
                     // if first vertex - move to start position
                     if (i === 0) this.ctx.moveTo(x, y)
 

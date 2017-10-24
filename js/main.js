@@ -1,25 +1,25 @@
-var scene;
+let scene;
 
 (function () {
     // Fix the canvas width and height
-    var canvas = document.getElementById('cnv')
+    let canvas = document.getElementById('cnv')
     canvas.width = canvas.offsetWidth
     canvas.height = canvas.offsetHeight
-    var dx = canvas.width / 2
-    var dy = canvas.height / 2
+    let canvasWidthMiddle = canvas.width / 2
+    let canvasHeightMiddle = canvas.height / 2
 
     // Objects style
-    var ctx = canvas.getContext('2d')
+    let ctx = canvas.getContext('2d')
     ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'
 
-    var objects = [
+    let objects = [
         // Cube(center, edgeLength)
         new Cube(new Vertex(-150, 900, 0),      200),
         new Cube(new Vertex(150, 400, 0),       200),
         new Cube(new Vertex(-400, 700, 0),         200)
     ]
 
-    scene = new Scene(ctx, objects, dx, dy)
+    scene = new Scene(ctx, objects, canvasWidthMiddle, canvasHeightMiddle)
     // First render
     scene.render()
 })();

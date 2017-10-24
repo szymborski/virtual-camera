@@ -1,16 +1,15 @@
-
-var Vertex = function (x, y, z) {
+const Vertex = function (x, y, z) {
     this.x = parseFloat(x);
     this.y = parseFloat(y);
     this.z = parseFloat(z);
 };
 
-var Vertex2D = function (x, y) {
+const Vertex2D = function (x, y) {
     this.x = parseFloat(x);
     this.y = parseFloat(y);
 };
 
-var Cube = function (center, edgeLength) {
+const Cube = function (center, edgeLength) {
     let d = edgeLength / 2;
 
     this.vertices = [
