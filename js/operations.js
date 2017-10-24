@@ -35,13 +35,13 @@ function rotateCamera(direction) {
 function translate(direction) {
     if (direction === "right" || direction === "up" || direction === "stepDown") step = scene.moveStep
     if (direction === "left" || direction === "down" || direction === "stepUp") step = -scene.moveStep
-
+    console.log(direction, 'dir')
     // horizontal
     if (direction === "left" || direction === "right") {
         scene.objects.forEach(object => {
             object.vertices.forEach(vertice => vertice.x += step)
         })
-    } else if (direction === "right" || direction === "up") { //  vertical
+    } else if (direction === "down" || direction === "up") { //  vertical
         scene.objects.forEach(object => {
             object.vertices.forEach(vertice => vertice.y += step)
         })
