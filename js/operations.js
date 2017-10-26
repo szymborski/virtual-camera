@@ -1,32 +1,26 @@
 function rotateCamera(direction) {
-    function rotateRight(vertice) {
-        vertice.x = (vertice.x * Math.cos(scene.rotateStep) - vertice.y * Math.sin(scene.rotateStep));
-        vertice.y = (vertice.x * Math.sin(scene.rotateStep) + vertice.y * Math.cos(scene.rotateStep));
-    }
+    const rotations = {
+        'right': function (vertice) {
+            vertice.x = (vertice.x * Math.cos(scene.rotateStep) - vertice.y * Math.sin(scene.rotateStep))
+            vertice.y = (vertice.x * Math.sin(scene.rotateStep) + vertice.y * Math.cos(scene.rotateStep))
 
-    function rotateLeft(vertice) {
-        vertice.x = (vertice.x * Math.cos(scene.rotateStep) - vertice.y * Math.sin(-scene.rotateStep));
-        vertice.y = (vertice.x * Math.sin(-scene.rotateStep) + vertice.y * Math.cos(scene.rotateStep));
+        },
+        'left': function (vertice) {
+            vertice.x = (vertice.x * Math.cos(scene.rotateStep) - vertice.y * Math.sin(-scene.rotateStep))
+            vertice.y = (vertice.x * Math.sin(-scene.rotateStep) + vertice.y * Math.cos(scene.rotateStep))
+        },
+        'up': function (vertice) {
+            vertice.y = (vertice.y * Math.cos(scene.rotateStep) - vertice.z * Math.sin(-scene.rotateStep))
+            vertice.z = (vertice.y * Math.sin(-scene.rotateStep) + vertice.z * Math.cos(scene.rotateStep))
+        },
+        'down': function (vertice) {
+            vertice.y = (vertice.y * Math.cos(scene.rotateStep) - vertice.z * Math.sin(scene.rotateStep))
+            vertice.z = (vertice.y * Math.sin(scene.rotateStep) + vertice.z * Math.cos(scene.rotateStep))
+        }
     }
-
-    function rotateUp(vertice) {
-        vertice.y = (vertice.y * Math.cos(scene.rotateStep) - vertice.z * Math.sin(-scene.rotateStep));
-        vertice.z = (vertice.y * Math.sin(-scene.rotateStep) + vertice.z * Math.cos(scene.rotateStep));
-    }
-
-    function rotateDown(vertice) {
-        vertice.y = (vertice.y * Math.cos(scene.rotateStep) - vertice.z * Math.sin(scene.rotateStep));
-        vertice.z = (vertice.y * Math.sin(scene.rotateStep) + vertice.z * Math.cos(scene.rotateStep));
-    }
-
-    let rotateFunction;
-    if (direction === "left") rotateFunction = rotateLeft;
-    if (direction === "right") rotateFunction = rotateRight;
-    if (direction === "up") rotateFunction = rotateUp;
-    if (direction === "down") rotateFunction = rotateDown;
 
     scene.objects.forEach(obj => {
-        obj.vertices.forEach(vertice => rotateFunction(vertice))
+        obj.vertices.forEach(vertice => rotations[direction](vertice))
     })
     scene.render()
 
