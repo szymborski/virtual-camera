@@ -27,22 +27,22 @@ function rotateCamera(direction) {
 }
 
 function translate(direction) {
-    if (direction === "right" || direction === "up" || direction === "stepDown") step = scene.moveStep
-    if (direction === "left" || direction === "down" || direction === "stepUp") step = -scene.moveStep
-    // horizontal
-    if (direction === "left" || direction === "right") {
-        scene.objects.forEach(object => {
-            object.vertices.forEach(vertice => vertice.x += step)
-        })
-    } else if (direction === "down" || direction === "up") { //  vertical
-        scene.objects.forEach(object => {
-            object.vertices.forEach(vertice => vertice.y += step)
-        })
-    } else if (direction === "stepUp" || direction === "stepDown") {
-        scene.objects.forEach(object => {
-            object.vertices.forEach(vertice => vertice.z += step)
-        })
+
+    const translateVertice = (vertice, variable, step) => vertice[variable] += step
+
+    const translations = {
+        'up': (vertice) => translateVertice(vertice, 'y', scene.moveStep),
+        'down': (vertice) => translateVertice(vertice, 'y', -scene.moveStep),
+        'left': (vertice) => translateVertice(vertice, 'x', -scene.moveStep),
+        'right': (vertice) => translateVertice(vertice, 'x', scene.moveStep),
+        'stepUp': (vertice) => translateVertice(vertice, 'z', -scene.moveStep),
+        'stepDown': (vertice) => translateVertice(vertice, 'z', -scene.moveStep),
     }
+
+    scene.objects.forEach(object => {
+        object.vertices.forEach(vertice => translations[direction](vertice))
+    })
+
     scene.render()
 }
 
@@ -52,6 +52,7 @@ function zoomIn() {
 }
 
 function zoomOut() {
+    // prevent too huge zoomOut
     if (scene.distance <= scene.distanceStep) return;
     scene.distance -= scene.distanceStep;
     scene.render()
