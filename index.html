@@ -1,21 +1,41 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="en">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title></title>
+        <title>VirtualCamera</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <link rel="stylesheet" href="css/style.css">
         <link rel="manifest" href="site.webmanifest">
         <link rel="apple-touch-icon" href="icon.png">
     </head>
-    <bocanvasHeightMiddle>
+    <body>
+        <div class="tooltip">
+            <ul class="keys">
+                <li><span class="key">W</span>rotate up</li>
+                <li><span class="key">A</span>rotate left</li>
+                <li><span class="key">S</span>rotate down</li>
+                <li><span class="key">D</span>rotate right</li>
+            </ul>
+            <ul class="keys">
+                <li><span class="key">↑</span>move forward</li>
+                <li><span class="key">↓</span>move backward</li>
+                <li><span class="key">←</span>translate left</li>
+                <li><span class="key">→</span>translate right</li>
+            </ul>
+            <ul class="keys">
+                <li><span class="key">pgUp</span>translate up</li>
+                <li><span class="key">pgDown</span>translate down</li>
+                <li><span class="key">=</span>zoom in</li>
+                <li><span class="key">-</span>zoom out</li>
+            </ul>
+        </div>
         <canvas id="cnv" width="1100" height="600"></canvas>
         <script src="js/data.js"></script>
         <script src="js/scene.js"></script>
         <script src="js/main.js"></script>
         <script src="js/operations.js"></script>
         <script src="js/keyhooks.js"></script>
-    </bocanvasHeightMiddle>
+    </body>
 </html>

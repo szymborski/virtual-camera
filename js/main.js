@@ -19,6 +19,6 @@ let objects = [
     new Cube(new Vertex(-400, 700, 0), 200)
 ]
 
-scene = new Scene(ctx, objects, canvasWidthMiddle, canvasHeightMiddle)
+scene = new Scene({ctx, objects, canvasWidthMiddle, canvasHeightMiddle})
 
 scene.render()

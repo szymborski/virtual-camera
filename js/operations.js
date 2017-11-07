@@ -36,7 +36,7 @@ function translate(direction) {
         'left': (vertice) => translateVertice(vertice, 'x', -scene.moveStep),
         'right': (vertice) => translateVertice(vertice, 'x', scene.moveStep),
         'stepUp': (vertice) => translateVertice(vertice, 'z', -scene.moveStep),
-        'stepDown': (vertice) => translateVertice(vertice, 'z', -scene.moveStep),
+        'stepDown': (vertice) => translateVertice(vertice, 'z', scene.moveStep),
     }
 
     scene.objects.forEach(object => {
