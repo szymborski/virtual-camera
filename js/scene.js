@@ -28,6 +28,7 @@ class Scene {
         this.ctx.clearRect(0, 0, 2 * this.canvasWidthMiddle, 2 * this.canvasHeightMiddle)
 
         this.objects.forEach(object => {
+            object.faces.sort(compareFaces)
             object.faces.forEach(face => {
                 this.ctx.beginPath()
                 face.forEach((vertex, i) => {
@@ -37,7 +38,6 @@ class Scene {
                     let y = -P.y + this.canvasHeightMiddle
                     // if first vertex - move to start position
                     if (i === 0) this.ctx.moveTo(x, y)
-
                     this.ctx.lineTo(x, y)
                 })
                 this.ctx.closePath()
