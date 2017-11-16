@@ -4,6 +4,8 @@ class Scene {
         // objects - objects to render
         this.objects = objects
         this.ctx = ctx
+        this.ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
+        this.ctx.fillStyle = 'rgba(0, 150, 255, 1)';
         this.canvasWidthMiddle = canvasWidthMiddle
         this.canvasHeightMiddle = canvasHeightMiddle
         this.distance = 200
@@ -40,6 +42,7 @@ class Scene {
                 })
                 this.ctx.closePath()
                 this.ctx.stroke()
+                this.ctx.fill();
             })
         })
     }
