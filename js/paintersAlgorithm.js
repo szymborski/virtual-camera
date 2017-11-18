@@ -19,16 +19,28 @@ function calculatePlaneEquation(face) {
 }
 
 function fixFacesOrder(faces) {
+    function checkForOverlap(a, b, func) {
+        const minA = Math.min(...a.map(func))
+        const maxA = Math.max(...a.map(func))
+        const minB = Math.min(...b.map(func))
+        const maxB = Math.max(...b.map(func))
+
+        // check if two compartments overlap
+        if (minA === minB || maxA === maxB)
+            return true
+        if (minA < minB) {
+            return maxA > minB
+        } else {
+            return maxB > minA
+        }
+    }
+
     let tests = [
         function firstTest(a, b) {
-            const maxAx = Math.max(...a.map(vertex => vertex.x))
-            const minBx = Math.min(...b.map(vertex => vertex.x))
-            return maxAx < minBx
+            return !checkForOverlap(a, b, vertex => vertex.x)
         },
         function secondTest(a, b) {
-            const maxAy = Math.max(...a.map(vertex => vertex.y))
-            const minBy = Math.min(...b.map(vertex => vertex.y))
-            return maxAy < minBy
+            return !checkForOverlap(a, b, vertex => vertex.y)
         },
         function thirdTest(a, b) {
             let bPlane = calculatePlaneEquation(b)
