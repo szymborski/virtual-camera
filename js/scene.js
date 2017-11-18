@@ -49,8 +49,10 @@ class Scene {
         this.ctx.clearRect(0, 0, 2 * this.canvasWidthMiddle, 2 * this.canvasHeightMiddle)
 
         this.objects.forEach(object => {
+            console.log('before', object.faces.map(face => face.map(vertex => vertex.z)))
             object.faces.sort(compareFaces)
-            object.faces.sort(compareFacesTests)
+            console.log('after', object.faces.map(face => face.map(vertex => vertex.z)))
+            makeTests(object.faces)
             object.faces.forEach(face => this.drawFace(face))
 
             // proper order
