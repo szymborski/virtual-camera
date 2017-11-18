@@ -23,27 +23,43 @@ class Scene {
         return new Vertex2D(r * M.x, r * M.z)
     }
 
+    drawFace(face) {
+        // get array with four vertex and draw face
+        this.ctx.beginPath()
+        face.forEach((vertex, i) => {
+            let P = this.project(vertex)
+            if (P === undefined) return
+            let x = P.x + this.canvasWidthMiddle
+            let y = -P.y + this.canvasHeightMiddle
+
+            // if first vertex - move to start position
+            if (i === 0) {
+                this.ctx.moveTo(x, y);
+                return;
+            }
+            this.ctx.lineTo(x, y)
+        })
+        this.ctx.closePath()
+        this.ctx.stroke()
+        this.ctx.fill()
+    }
+
     render() {
         // clear the previous frame
         this.ctx.clearRect(0, 0, 2 * this.canvasWidthMiddle, 2 * this.canvasHeightMiddle)
 
         this.objects.forEach(object => {
             object.faces.sort(compareFaces)
-            object.faces.forEach(face => {
-                this.ctx.beginPath()
-                face.forEach((vertex, i) => {
-                    let P = this.project(vertex)
-                    if (P === undefined) return
-                    let x = P.x + this.canvasWidthMiddle
-                    let y = -P.y + this.canvasHeightMiddle
-                    // if first vertex - move to start position
-                    if (i === 0) this.ctx.moveTo(x, y)
-                    this.ctx.lineTo(x, y)
-                })
-                this.ctx.closePath()
-                this.ctx.stroke()
-                this.ctx.fill();
-            })
+            object.faces.sort(compareFacesTests)
+            object.faces.forEach(face => this.drawFace(face))
+
+            // proper order
+            // this.drawFace(object.faces[2])
+            // this.drawFace(object.faces[1])
+            // this.drawFace(object.faces[4])
+            // this.drawFace(object.faces[5])
+            // this.drawFace(object.faces[3])
+            // this.drawFace(object.faces[0])
         })
     }
 }
