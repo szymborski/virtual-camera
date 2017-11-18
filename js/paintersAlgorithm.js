@@ -18,8 +18,7 @@ function calculatePlaneEquation(face) {
     return coefficients
 }
 
-function makeTests(faces) {
-
+function fixFacesOrder(faces) {
     let tests = [
         function firstTest(a, b) {
             const maxAx = Math.max(...a.map(vertex => vertex.x))
@@ -32,10 +31,7 @@ function makeTests(faces) {
             return maxAy < minBy
         },
         function thirdTest(a, b) {
-            // a face plane equation:
-            console.log(b, 'b')
             let bPlane = calculatePlaneEquation(b)
-            console.log(bPlane, 'bPlane')
             let result = true
             a.forEach(vertex => {
                 let equation = bPlane.a * vertex.x + bPlane.b * vertex.y + bPlane.c * vertex.z + bPlane.d
@@ -54,34 +50,42 @@ function makeTests(faces) {
             })
             return result
         },
-        function fifthTest() {
-            return false // todo
+        function fifthTest(a, b) {
+            // create projection to xy plane and check if a and b are in contact
+            let result = true
+            let borders = {
+                xMin: Math.min(...b.map(vertex => vertex.x)),
+                xMax: Math.max(...b.map(vertex => vertex.x)),
+                yMin: Math.min(...b.map(vertex => vertex.y)),
+                yMax: Math.max(...b.map(vertex => vertex.y))
+            }
+            a.forEach(vertex => {
+                if (vertex.x < borders.xMin || vertex.x > borders.xMax || vertex.y < borders.yMin || vertex.y > borders.yMax)
+                    return
+                result = false
+            })
+            return result
         }
     ]
 
     function makeTests(faceA, faceB) {
-        return (
-            tests[0](faceA, faceB) ||
-            tests[1](faceA, faceB) ||
-            tests[2](faceA, faceB) ||
-            tests[3](faceA, faceB) ||
-            tests[4](faceA, faceB)
-        )
+        let result = false
+        tests.forEach(test => result = result || test(faceA, faceB))
+        return result
     }
 
     // we have to run 5 tests, positive result for any means no swap
-    // otherwise - if 5 tests are false swap faces and do tests again?
+    // otherwise - if 5 tests are false swap faces and do tests again
     for (let i = 0; i < faces.length; i++) {
         for (let j = 0; j < faces.length; j++) {
-            if (makeTests(faces[i], faces[j])) {
-                continue
-            } else {
-                const tmp = faces[i]
-                faces[i] = faces[j]
-                faces[j] = tmp
+            // if (i === j) continue
+            if (!makeTests(faces[i], faces[j])) {
+                // swap
+                [faces[i], faces[j]] = [faces[j], faces[i]]
                 if (makeTests(faces[i], faces[j]))
                     continue
                 // case with no solution
+                console.log('Pair impossible to order', faces[i], faces[j])
                 break
             }
         }

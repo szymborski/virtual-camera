@@ -10,7 +10,6 @@ const canvasHeightMiddle = canvas.height / 2
 
 // Objects style
 let ctx = canvas.getContext('2d')
-ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'
 
 let objects = [
     // Cube(center, edgeLength)

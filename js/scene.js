@@ -4,8 +4,8 @@ class Scene {
         // objects - objects to render
         this.objects = objects
         this.ctx = ctx
-        this.ctx.strokeStyle = 'rgba(0, 0, 0, 1)';
-        this.ctx.fillStyle = 'rgba(0, 150, 255, 1)';
+        this.ctx.strokeStyle = 'rgba(0, 0, 0, 0.6)'
+        this.ctx.fillStyle = 'rgba(0, 150, 111, 1)';
         this.canvasWidthMiddle = canvasWidthMiddle
         this.canvasHeightMiddle = canvasHeightMiddle
         this.distance = 200
@@ -47,22 +47,26 @@ class Scene {
     render() {
         // clear the previous frame
         this.ctx.clearRect(0, 0, 2 * this.canvasWidthMiddle, 2 * this.canvasHeightMiddle)
+        // get all faces
+        let faces = this.objects.map(object => object.faces)
+        faces = [].concat.apply([],faces);
+        faces.sort(compareFaces)
+        fixFacesOrder(faces)
+        faces.forEach(face => this.drawFace(face))
 
-        this.objects.forEach(object => {
-            console.log('before', object.faces.map(face => face.map(vertex => vertex.z)))
-            object.faces.sort(compareFaces)
-            console.log('after', object.faces.map(face => face.map(vertex => vertex.z)))
-            makeTests(object.faces)
-            object.faces.forEach(face => this.drawFace(face))
-
-            // proper order
-            // this.drawFace(object.faces[2])
-            // this.drawFace(object.faces[1])
-            // this.drawFace(object.faces[4])
-            // this.drawFace(object.faces[5])
-            // this.drawFace(object.faces[3])
-            // this.drawFace(object.faces[0])
-        })
+        // this.objects.forEach(object => {
+        //     object.faces.sort(compareFaces)
+        //     fixFacesOrder(object.faces)
+        //     object.faces.forEach(face => this.drawFace(face))
+        //
+        //     // proper order
+        //     // this.drawFace(object.faces[2])
+        //     // this.drawFace(object.faces[1])
+        //     // this.drawFace(object.faces[4])
+        //     // this.drawFace(object.faces[5])
+        //     // this.drawFace(object.faces[3])
+        //     // this.drawFace(object.faces[0])
+        // })
     }
 }
 
