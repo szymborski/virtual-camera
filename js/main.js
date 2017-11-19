@@ -13,9 +13,9 @@ let ctx = canvas.getContext('2d')
 
 let objects = [
     // Cube(center, edgeLength)
-    // new Cube(new Vertex(-150, 900, 0), 200),
+    new Cube(new Vertex(-150, 900, 0), 200),
     new Cube(new Vertex(150, 400, 0), 200),
-    // new Cube(new Vertex(-400, 700, 0), 200)
+    new Cube(new Vertex(-400, 700, 0), 200)
 ]
 
 scene = new Scene({ctx, objects, canvasWidthMiddle, canvasHeightMiddle})

@@ -3,7 +3,6 @@ function rotateCamera(direction) {
         'right': function (vertice) {
             vertice.x = (vertice.x * Math.cos(scene.rotateStep) - vertice.y * Math.sin(scene.rotateStep))
             vertice.y = (vertice.x * Math.sin(scene.rotateStep) + vertice.y * Math.cos(scene.rotateStep))
-
         },
         'left': function (vertice) {
             vertice.x = (vertice.x * Math.cos(scene.rotateStep) - vertice.y * Math.sin(-scene.rotateStep))

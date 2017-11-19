@@ -47,26 +47,13 @@ class Scene {
     render() {
         // clear the previous frame
         this.ctx.clearRect(0, 0, 2 * this.canvasWidthMiddle, 2 * this.canvasHeightMiddle)
-        // get all faces
-        let faces = this.objects.map(object => object.faces)
-        faces = [].concat.apply([],faces);
-        faces.sort(compareFaces)
-        fixFacesOrder(faces)
-        faces.forEach(face => this.drawFace(face))
 
-        // this.objects.forEach(object => {
-        //     object.faces.sort(compareFaces)
-        //     fixFacesOrder(object.faces)
-        //     object.faces.forEach(face => this.drawFace(face))
-        //
-        //     // proper order
-        //     // this.drawFace(object.faces[2])
-        //     // this.drawFace(object.faces[1])
-        //     // this.drawFace(object.faces[4])
-        //     // this.drawFace(object.faces[5])
-        //     // this.drawFace(object.faces[3])
-        //     // this.drawFace(object.faces[0])
-        // })
+        this.objects.sort(compareCubes)
+
+        this.objects.forEach(object => {
+            object.faces.sort(simpleCompareFaces)
+            object.faces.forEach(face => this.drawFace(face))
+        })
     }
 }
 
