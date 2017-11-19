@@ -4,7 +4,7 @@ function compareFaces(a, b) {// a-b returns 1, 3, 4
     return maxBz - maxAz
 }
 
-function calculatePlaneEquation(face) {
+function calculatePlaneCoefficients(face) {
     let A = face[0],
         B = face[1],
         C = face[2]
@@ -43,7 +43,7 @@ function fixFacesOrder(faces) {
             return !checkForOverlap(a, b, vertex => vertex.y)
         },
         function thirdTest(a, b) {
-            let bPlane = calculatePlaneEquation(b)
+            let bPlane = calculatePlaneCoefficients(b)
             let result = true
             a.forEach(vertex => {
                 let equation = bPlane.a * vertex.x + bPlane.b * vertex.y + bPlane.c * vertex.z + bPlane.d
@@ -53,7 +53,7 @@ function fixFacesOrder(faces) {
             return result
         },
         function fourthTest(a, b) {
-            let aPlane = calculatePlaneEquation(a)
+            let aPlane = calculatePlaneCoefficients(a)
             let result = true
             b.forEach(vertex => {
                 let equation = aPlane.a * vertex.x + aPlane.b * vertex.y + aPlane.c * vertex.z + aPlane.d
@@ -90,7 +90,6 @@ function fixFacesOrder(faces) {
     // otherwise - if 5 tests are false swap faces and do tests again
     for (let i = 0; i < faces.length; i++) {
         for (let j = 0; j < faces.length; j++) {
-            // if (i === j) continue
             if (!makeTests(faces[i], faces[j])) {
                 // swap
                 [faces[i], faces[j]] = [faces[j], faces[i]]
