@@ -51,8 +51,9 @@ class Scene {
         this.objects.sort(compareCubes)
 
         this.objects.forEach(object => {
-            object.faces.sort(simpleCompareFaces)
-            object.faces.forEach(face => this.drawFace(face))
+			let improvedObject = eliminateInvisibleFaces(object)
+            improvedObject.sort(simpleCompareFaces)
+            improvedObject.forEach(face => this.drawFace(face))
         })
     }
 }
