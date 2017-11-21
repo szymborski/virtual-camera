@@ -48,13 +48,14 @@ class Scene {
         // clear the previous frame
         this.ctx.clearRect(0, 0, 2 * this.canvasWidthMiddle, 2 * this.canvasHeightMiddle)
 
-        this.objects.sort(compareCubes)
+        // get all faces
+        let faces = this.objects.map(object => object.faces)
+        faces = [].concat.apply([],faces);
+        
+        let eliminatedFaces = eliminateInvisibleFaces(faces)
+        eliminatedFaces.sort(simpleCompareFaces)
+        eliminatedFaces.forEach(face => this.drawFace(face))
 
-        this.objects.forEach(object => {
-			let improvedObject = eliminateInvisibleFaces(object)
-            improvedObject.sort(simpleCompareFaces)
-            improvedObject.forEach(face => this.drawFace(face))
-        })
     }
 }
 

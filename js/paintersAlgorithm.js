@@ -10,15 +10,6 @@ function simpleCompareFaces(a, b) {
     return getFaceAvg(b) - getFaceAvg(a)
 }
 
-function compareCubes(a, b) {
-    function sumFacesAvg (previousValue, currentValue) {
-        return previousValue + getFaceAvg(currentValue)
-    }
-    const sumA = a.faces.reduce(sumFacesAvg, 0) / a.faces.length
-    const sumB = b.faces.reduce(sumFacesAvg, 0) / b.faces.length
-    return sumB - sumA
-}
-
 function calculateNormalVector(face) {
 	let [ a, b, c ] = face,
 		vec1 = new Vertex(b.x - a.x, b.y - a.y, b.z - a.z),
@@ -34,13 +25,13 @@ function calculateNormalVector(face) {
 	return normalVector;
 }
 
-function eliminateInvisibleFaces(cube) {
+function eliminateInvisibleFaces(faces) {
  	let facesToShow = [],
 		i = 0,
-		facesLength = cube.faces.length;
+		facesLength = faces.length;
 
 	for (; i < facesLength; ++i) {
-		let face = cube.faces[i],
+		let face = faces[i],
 			normalVector = calculateNormalVector(face),
 			facePoint = face[3];
 
